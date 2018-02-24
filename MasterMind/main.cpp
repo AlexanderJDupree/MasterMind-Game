@@ -85,6 +85,7 @@ int main()
     do {
         Game game(2); // instantiates new game manager object.
         int solutionLength = game.getSolutionLength();
+        LOG(game.getSolution());
         do {
 
         string guess;

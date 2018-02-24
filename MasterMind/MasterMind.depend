@@ -15,15 +15,16 @@
 
 1519502366 source:c:\users\bickl\documents\github\mastermind-game\mastermind\mastermind.cpp
 
-1519506003 source:c:\users\dupre\desktop\mastermind-game\mastermind\mastermind.cpp
+1519506891 source:c:\users\dupre\desktop\mastermind-game\mastermind\mastermind.cpp
 	<cstdlib>
+	<ctime>
 	"MasterMind.h"
 
 1519506053 c:\users\dupre\desktop\mastermind-game\mastermind\mastermind.h
 	<string>
 	<map>
 
-1519505801 source:c:\users\dupre\desktop\mastermind-game\mastermind\main.cpp
+1519506805 source:c:\users\dupre\desktop\mastermind-game\mastermind\main.cpp
 	<iostream>
 	"MasterMind.h"
 
