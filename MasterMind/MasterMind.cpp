@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <ctime>
 #include "MasterMind.h"
 
 Game::Game(int difficulty)
@@ -121,6 +122,7 @@ void Game::difficultyScaler()
 std::string Game::generateSolution()
 {
     std::string solution = "";
+    std::srand(time(NULL));
     for (unsigned int i = 0; i < m_solutionLength; i++)
     {
         switch (rand() % 4)
