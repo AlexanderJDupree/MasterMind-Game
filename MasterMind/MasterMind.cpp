@@ -78,6 +78,11 @@ unsigned int Game::getMaxAttempts()
     return m_maxAttempts;
 }
 
+unsigned int Game::getDifficulty()
+{
+    return m_difficulty;
+}
+
 std::string Game::getSolution()
 {
     return m_solution;
@@ -87,6 +92,7 @@ HitSummary Game::getResults()
 {
     return m_results;
 }
+
 
 //////////////////////////////// SETTERS //////////////////////////////////////
 

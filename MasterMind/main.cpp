@@ -11,6 +11,8 @@
     - Created an encompassing lowercase function, lowerCase()
     - Added resetInputStream() for bad inputs
     - Started game loop in main()
+    - Added displayResults()
+    - Added gameSummary()
 
     In the header file
     - Added struct HitSummary to keep track of hits and near hits.
@@ -23,6 +25,9 @@
     - Added public function isGameComplete()
     - Added getters for isGameWon, solution length, solution, and results.
     - Added incrementAttempt()
+    - Added difficultyScaler
+    - Added various getters and setters
+
 
     2/24/2018
     - Moved setm_difficulty to the constructor, because the difficulty
@@ -57,15 +62,17 @@ using namespace std;
 
 void intro();
 void displayResults(Game &game);
-void gameSummary(); // TODO jake
+// Displays hits, near hits, misses, and attempts remaining.
+void gameSummary(Game &game);
+// Displays correct solution, whether player has one or lost, attempts, and
+// the difficulty.
 void displayErrorMessage(int solutionLength, string validChars);
 void resetInputStream();
 // resets failure state and discards bad characters on any input that failed.
-
+void changeDifficulty(); // TODO ask user before game object is instantiated
 string lowerCase(string input);
 // std::string doesn't contain a encompassing lowercase function. So I made one.
 string getInput(string prompt);
-
 bool isValidInput(unsigned int length, string input, const string &validChars);
 bool isValidChars(string input, const string &validChars);
 
@@ -137,6 +144,43 @@ void displayResults(Game &game)
          << "MISSES: \t" << misses << '\n'
          << "ATTEMPTS:\t" << game.getAttempts() << '/' << game.getMaxAttempts()
          << "\n---=============---\n";
+}
+
+void gameSummary(Game &game)
+{
+    string solution = game.getSolution();
+    string difficulty;
+    int difficultyNum = game.getDifficulty(); // NEED GETTER
+    unsigned int attempts = game.getAttempts();
+    unsigned int maxAttempts = game.getMaxAttempts();
+    bool win = game.isGameWon();
+
+    switch(difficultyNum)
+    {
+        case 1: difficulty = "EASY"; break;
+        case 2: difficulty = "MEDIUM"; break;
+        case 3: difficulty = "HARD"; break;
+        case 4: difficulty = "EXPERT"; break;
+    }
+
+    cout << "\n\n\nThe solution is: " << solution;
+
+    if(win)
+        cout << "\n\nCONGRATULATIONS, YOU'VE WON!";
+    else
+        cout << "\n\nYou've LOST!";
+
+    cout << "\nIt took you " << attempts << " out of " << maxAttempts
+         << " attempts."
+         << "\nDIFFICULTY: " << difficulty;
+
+    /*
+    THE SOLUTION IS: YRGB
+
+    CONGRATULATIONS, YOU'VE WON!
+    It took you blank out of blank attempts.
+    Difficulty: EASY/NORMAL/HARD/EXPERT
+    */
 }
 
 void displayErrorMessage(int solutionLength, string validChars)
