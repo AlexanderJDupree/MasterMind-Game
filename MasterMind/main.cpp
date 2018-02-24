@@ -27,14 +27,15 @@
 ******************************************************************************/
 
 #include <iostream>
+#include <string>
 #include "MasterMind.h"
 
 #define LOG(x) std::cout << x << std::endl;
 
 using namespace std;
 
-void intro(); // TODO jake
-void displayResults(); // TODO  jake
+void intro();
+void displayResults(Game &game);
 void gameSummary(); // TODO jake
 void resetInputStream();
 // resets failure state and discards bad characters on any input that failed.
@@ -50,23 +51,27 @@ int main()
 {
     const string validChars = "bgyr";
 
+    intro();
     do {
         Game game; // instantiates new game manager object.
         unsigned int solutionLength = game.getSolutionLength();
         do {
-        string guess;
-        guess = getInput("Enter your guess:  ");
-        if (isValidInput(solutionLength, guess, validChars))
-        {
-            game.guessStatus(guess);
-            game.updateGameWon();
-            game.incrementAttempt();
-            // TODO display results
-        }
-        else
-        {
-            // TODO bad input, print error message
-        }
+            string guess;
+            guess = getInput("Enter your guess:  ");
+            if (isValidInput(solutionLength, guess, validChars))
+            {
+                game.guessStatus(guess);
+                game.updateGameWon();
+                game.incrementAttempt();
+                displayResults(game);
+            }
+            else
+            {
+                cout << "\nThe only valid characters are (b)lue, (g)reen,"
+                     << " (r)ed, and (y)ellow."
+                     << "\nThe combination is " << game.getSolutionLength()
+                     << " characters long.\n\n";
+            }
         } while (!game.isGameComplete());
         // TODO Game summary
     } while (false); // TODO while user wants to play again.
@@ -129,4 +134,43 @@ bool isValidChars(string input, const string &validChars)
         if (!charTable[input[i]]) { return false;}
     }
     return true;
+}
+
+
+void displayResults(Game &game)
+{
+    unsigned int hits = game.getResults().hits;
+    unsigned int nearHits = game.getResults().nearHits;
+    unsigned int misses = game.getSolution().length() - (hits + nearHits);
+
+    cout << "\n---=============---\n"
+         << "HITS:\t\t" << hits << '\n'
+         << "NEAR HITS:\t" << nearHits << '\n'
+         << "MISSES: \t" << misses << '\n'
+         << "ATTEMPTS:\t" << game.getAttempts() << '/' << game.getMaxAttempts()
+         << "\n---=============---\n";
+}
+
+void intro()
+{
+    cout << "\t\tMASTER MIND"
+         << "\n\n\tAUTHORS: Alex Dupree, Jacob Bickle"
+         << "\n\n\tCREATED: 2/24/2018"
+
+         << "\n\nIn this game, the computer will randomly generate four colors:"
+         << "\nRed (r), Green (g), Blue (b), and Yellow (y)."
+         << "\nYour goal is to guess which order the computer has sorted the"
+         << "\ncolors within a certain amount of attempts. "
+
+         << "\n\nTo help you out, every guess will provide you feed back."
+         << "\nA \"miss\" will mean that a color you specified is not apart"
+         << "\nof the solution. A \"near hit\" means that a color you specified"
+         << "\nis apart of the solution, but not in the correct location."
+         << "\nA \"hit\" means a color you specified is in the correct location."
+
+         << "\n\n\t\tEXAMPLE"
+         << "\n\tCOMPUTER: rggy"
+         << "\n\tPLAYER:   yrgb"
+         << "\n\nThe player would receive one hit, two near hits, and one miss."
+         << "\n\n\n\n";
 }

@@ -4,6 +4,7 @@
 Game::Game()
 {
     m_attempts = 0;
+    m_maxAttempts = 5;
     m_isGameWon = false;
     m_solution = generateSolution();
     m_solutionTable = createSolutionTable(m_solution);
@@ -42,7 +43,7 @@ void Game::updateGameWon()
 
 bool Game::isGameComplete()
 {
-    if (m_isGameWon || m_attempts >= m_maxTries)
+    if (m_isGameWon || m_attempts >= m_maxAttempts)
     {
         return true;
     }
@@ -72,6 +73,16 @@ std::string Game::getSolution()
 HitSummary Game::getResults()
 {
     return m_results;
+}
+
+unsigned int Game::getAttempts()
+{
+    return m_attempts;
+}
+
+unsigned int Game::getMaxAttempts()
+{
+    return m_maxAttempts;
 }
 
 //////////////////////////////// SETTERS //////////////////////////////////////
