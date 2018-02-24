@@ -51,6 +51,10 @@
     - removed #include <string> from main. It's already in the header file.
     - Finished difficulty scaler, now called from the constructor.
 
+    2/24/2018
+    - removed merge conflicts again
+    - added getDifficulty in main, is called before game object is instantiated
+
 ******************************************************************************/
 
 #include <iostream>
@@ -69,7 +73,8 @@ void gameSummary(Game &game);
 void displayErrorMessage(int solutionLength, string validChars);
 void resetInputStream();
 // resets failure state and discards bad characters on any input that failed.
-void changeDifficulty(); // TODO ask user before game object is instantiated
+int getDifficulty();
+// Asks user what difficulty setting to play on.
 string lowerCase(string input);
 // std::string doesn't contain a encompassing lowercase function. So I made one.
 string getInput(string prompt);
@@ -79,13 +84,15 @@ bool isValidChars(string input, const string &validChars);
 int main()
 {
     const string validChars = "bgyr";
+    int difficulty;
 
     intro();
 
     do {
-        Game game(2); // instantiates new game manager object.
+        difficulty = getDifficulty();
+        Game game(difficulty); // instantiates new game manager object.
         int solutionLength = game.getSolutionLength();
-        LOG(game.getSolution());
+        LOG(game.getSolution()); // DEBUG LOG
         do {
 
         string guess;
@@ -205,6 +212,22 @@ void resetInputStream()
     // discard 'bad' characters
     cin.ignore(100, '\n');
     return;
+}
+
+int getDifficulty()
+{
+    int difficulty;
+    cout << "1. Easy\n2. Medium\n3. Hard\n4. EXPERT!" << endl;
+    cout << "Choose your difficulty:  ";
+    cin >> difficulty;
+    if (difficulty > 4 || difficulty < 1)
+    {
+        cout << "Unrecognized input, defaulting to Medium difficulty.\n\n";
+        resetInputStream(); // In case user inputs a character.
+        return 2;
+    }
+    cout << "Good luck!\n" << endl;
+    return difficulty;
 }
 
 string lowerCase(string input)
