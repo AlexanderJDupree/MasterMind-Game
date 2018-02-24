@@ -1,6 +1,6 @@
 /******************************************************************************
 
-
+ TODO ADD CLASS DESCRIPTION
 
 ******************************************************************************/
 #ifndef GAME_H
@@ -39,12 +39,17 @@ public:
     // solution.
 
     bool isGameComplete();
-    // returns true if game is won or attempts exceed max tries
+    // Returns true if game is won or attempts exceed max tries
+
+    void difficultyScaler();
+    // TODO. Switches variables(need to define which ones)
+    // around to scale with difficulty
 
     // GETTERS
     bool isGameWon();
-    int getSolutionLength();
-    int getRemainingTries();
+    unsigned int getSolutionLength();
+    unsigned int getAttempts();
+    unsigned int getMaxAttempts();
     std::string getSolution();
     HitSummary getResults();
 
@@ -64,8 +69,7 @@ private:
     // Iterates through solution, and stores the character as a key
     // and sets it's value as true. Returns the map of the solution.
 
-
-    unsigned int m_maxTries;
+    unsigned int m_maxAttempts;
     unsigned int m_solutionLength;
     unsigned int m_attempts;
     unsigned int m_difficulty; // Ranges 1 - 4

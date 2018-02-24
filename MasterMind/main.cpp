@@ -40,6 +40,11 @@
       change based on difficulty settings.
     - Added error message on bad inputs.
 
+    2/24/2018
+    - removed merge conflicts
+    - finished the renaming of maxTries to maxAttempts
+    - removed #include <string> from main. It's already in the header file.
+
 ******************************************************************************/
 
 #include <iostream>
@@ -50,7 +55,7 @@
 using namespace std;
 
 void intro();
-void displayResults(); // TODO  jake
+void displayResults(Game &game);
 void gameSummary(); // TODO jake
 void displayErrorMessage(int solutionLength, string validChars);
 void resetInputStream();
@@ -73,6 +78,7 @@ int main()
         Game game(2); // instantiates new game manager object.
         int solutionLength = game.getSolutionLength();
         do {
+
         string guess;
         guess = getInput("Enter your guess:  ");
         if (isValidInput(solutionLength, guess, validChars))
@@ -80,14 +86,13 @@ int main()
             game.guessStatus(guess);
             game.updateGameWon();
             game.incrementAttempt();
-            // TODO display results
+            displayResults(game);
+            // game is passed by reference
         }
         else { displayErrorMessage(solutionLength, validChars); }
         } while (!game.isGameComplete());
         // TODO Game summary
     } while (false); // TODO while user wants to play again.
-
-
     return 0;
 }
 
@@ -119,22 +124,19 @@ void intro()
     return;
 }
 
-/*
-void displayResults()
-// Needs the struct as an arguement, but can't reference struct HitSummary
-// in MasterMind.h from main.cpp
+void displayResults(Game &game)
 {
-    unsigned int hits = results.hits;
-    unsigned int nearHits = results.nearHits
-    unsigned int misses = length(Game.getm_solution) - (hits + nearHits)
+    unsigned int hits = game.getResults().hits;
+    unsigned int nearHits = game.getResults().nearHits;
+    unsigned int misses = game.getSolution().length() - (hits + nearHits);
 
-    cout << "\n==========\n"
+    cout << "\n---=============---\n"
          << "HITS:\t\t" << hits << '\n'
          << "NEAR HITS:\t" << nearHits << '\n'
          << "MISSES: \t" << misses << '\n'
-         << "==========\n"
+         << "ATTEMPTS:\t" << game.getAttempts() << '/' << game.getMaxAttempts()
+         << "\n---=============---\n";
 }
-*/
 
 void displayErrorMessage(int solutionLength, string validChars)
 {
@@ -205,4 +207,3 @@ bool isValidChars(string input, const string &validChars)
     }
     return true;
 }
-

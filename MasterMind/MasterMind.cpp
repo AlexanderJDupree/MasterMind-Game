@@ -4,6 +4,7 @@
 Game::Game(int difficulty)
 {
     m_attempts = 0;
+    m_maxAttempts = 5;
     m_isGameWon = false;
     m_difficulty = difficulty;
 
@@ -46,7 +47,7 @@ void Game::updateGameWon()
 
 bool Game::isGameComplete()
 {
-    if (m_isGameWon || m_attempts >= m_maxTries)
+    if (m_isGameWon || m_attempts >= m_maxAttempts)
     {
         return true;
     }
@@ -63,14 +64,19 @@ bool Game::isGameWon()
     return m_isGameWon;
 }
 
-int Game::getSolutionLength()
+unsigned int Game::getSolutionLength()
 {
     return m_solutionLength;
 }
 
-int Game::getRemainingTries()
+unsigned int Game::getAttempts()
 {
-    return m_maxTries - m_attempts;
+    return m_attempts;
+}
+
+unsigned int Game::getMaxAttempts()
+{
+    return m_maxAttempts;
 }
 
 std::string Game::getSolution()
@@ -97,11 +103,11 @@ void Game::setDifficultyAttributes()
 {
     switch (m_difficulty)
     {
-        case 1 : m_maxTries = 6; m_solutionLength = 3; break;
-        case 2 : m_maxTries = 5; m_solutionLength = 4; break;
-        case 3 : m_maxTries = 4; m_solutionLength = 5; break;
-        case 4 : m_maxTries = 4; m_solutionLength = 6; break;
-        default : m_maxTries = 5; m_solutionLength = 4;
+        case 1 : m_maxAttempts = 6; m_solutionLength = 3; break;
+        case 2 : m_maxAttempts = 5; m_solutionLength = 4; break;
+        case 3 : m_maxAttempts = 4; m_solutionLength = 5; break;
+        case 4 : m_maxAttempts = 4; m_solutionLength = 6; break;
+        default : m_maxAttempts = 5; m_solutionLength = 4;
         // default case sets difficulty to 2. Medium difficulty.
     }
     return;
