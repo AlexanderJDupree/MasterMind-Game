@@ -41,10 +41,6 @@ public:
     bool isGameComplete();
     // Returns true if game is won or attempts exceed max tries
 
-    void difficultyScaler();
-    // TODO. Switches variables(need to define which ones)
-    // around to scale with difficulty
-
     // GETTERS
     bool isGameWon();
     unsigned int getSolutionLength();
@@ -59,7 +55,7 @@ public:
 
 private:
 
-    void setDifficultyAttributes();
+    void difficultyScaler();
     // Sets maxTries and Solution lengths values to scale with difficulty.
 
     std::string generateSolution();

@@ -4,11 +4,10 @@
 Game::Game(int difficulty)
 {
     m_attempts = 0;
-    m_maxAttempts = 5;
     m_isGameWon = false;
-    m_difficulty = difficulty;
 
-    setDifficultyAttributes();
+    m_difficulty = difficulty;
+    difficultyScaler();
     // sets solution length and max tries based on difficulty.
     m_solution = generateSolution();
     m_solutionTable = createSolutionTable(m_solution);
@@ -99,7 +98,7 @@ void Game::incrementAttempt()
 
 //////////////////////////////// PRIVATE //////////////////////////////////////
 
-void Game::setDifficultyAttributes()
+void Game::difficultyScaler()
 {
     switch (m_difficulty)
     {

@@ -44,6 +44,7 @@
     - removed merge conflicts
     - finished the renaming of maxTries to maxAttempts
     - removed #include <string> from main. It's already in the header file.
+    - Finished difficulty scaler, now called from the constructor.
 
 ******************************************************************************/
 
