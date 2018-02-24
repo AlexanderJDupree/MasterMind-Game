@@ -82,6 +82,13 @@ void Game::incrementAttempt()
     return;
 }
 
+void Game::setm_difficulty(unsigned short difficulty)
+{
+    m_difficulty = difficulty;
+    return;
+}
+
+
 //////////////////////////////// PRIVATE //////////////////////////////////////
 
 std::string Game::generateSolution()
