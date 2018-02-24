@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1519458227 source:c:\users\dupre\desktop\cs161\mastermind game\mastermind\mastermind.cpp
+	<cstdlib>
+	"MasterMind.h"
+
+1519458208 c:\users\dupre\desktop\cs161\mastermind game\mastermind\mastermind.h
+	<string>
+	<map>
+
+1519457610 source:c:\users\dupre\desktop\cs161\mastermind game\mastermind\main.cpp
+	<iostream>
+	"MasterMind.h"
+
