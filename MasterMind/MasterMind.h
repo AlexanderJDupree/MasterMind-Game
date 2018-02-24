@@ -49,7 +49,7 @@ public:
 
     // SETTERS
     void incrementAttempt();
-
+    void Game::setm_difficulty(unsigned short difficulty)
 private:
 
     std::string generateSolution();
@@ -68,6 +68,8 @@ private:
     std::string m_solution;
     std::map<char, bool> m_solutionTable;
     bool m_isGameWon;
+    unsigned short m_difficulty; // Ranges 1 - 4
+
 };
 
 

@@ -33,7 +33,7 @@
 
 using namespace std;
 
-void intro(); // TODO jake
+void intro();
 void displayResults(); // TODO  jake
 void gameSummary(); // TODO jake
 void resetInputStream();
@@ -119,6 +119,7 @@ bool isValidInput(unsigned int length, string input, const string &validChars)
 
 bool isValidChars(string input, const string &validChars)
 {
+
     map<char, bool> charTable;
     for (unsigned int i = 0; i < validChars.length(); i++)
     {
@@ -129,4 +130,47 @@ bool isValidChars(string input, const string &validChars)
         if (!charTable[input[i]]) { return false;}
     }
     return true;
+}
+
+/*
+void displayResults()
+// Needs the struct as an arguement, but can't reference struct HitSummary
+// in MasterMind.h from main.cpp
+{
+    unsigned int hits = results.hits;
+    unsigned int nearHits = results.nearHits
+    unsigned int misses = length(Game.getm_solution) - (hits + nearHits)
+
+    cout << "\n==========\n"
+         << "HITS:\t\t" << hits << '\n'
+         << "NEAR HITS:\t" << nearHits << '\n'
+         << "MISSES: \t" << misses << '\n'
+         << "==========\n"
+}
+*/
+
+void intro()
+{
+    cout << "\t\tMASTER MIND"
+         << "\n\n\tAUTHORS: Alex Dupree, Jacob Bickle"
+         << "\n\n\tCREATED: 2/24/2018"
+
+         << "\n\nIn this game, the computer will randomly generate four colors:"
+         << "\nRed (r), Green (g), Blue (b), and Yellow (y)."
+         << "\nYour goal is to guess which order the computer has sorted the"
+         << "\ncolors within a certain amount of attempts. "
+
+         << "\n\nTo help you out, every guess will provide you feed back."
+         << "\nA \"miss\" will mean that a color you specified is not apart"
+         << "\nof the solution. A \"near hit\" means that a color you specified"
+         << "\nis apart of the solution, but not in the correct location."
+         << "\nA \"hit\" means a color you specified is in the correct location."
+
+         << "\n\n\t\tEXAMPLE"
+         << "\n\tCOMPUTER: rggy"
+         << "\n\tPLAYER:   yrgb"
+         << "\n\nThe player would receive one hit, two near hits, and one miss."
+         << "\n\n\n\n";
+
+         << "\n\n"
 }
