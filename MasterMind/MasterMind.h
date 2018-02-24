@@ -1,6 +1,6 @@
 /******************************************************************************
 
-
+ TODO ADD CLASS DESCRIPTION
 
 ******************************************************************************/
 #ifndef GAME_H
@@ -22,10 +22,11 @@ class Game
 {
 public:
 
-    Game();
+    Game(int difficulty);
     // Constructor sets m_attempts to 0, m_isGameWon to false, as well as
     // generates the solution by calling private function generateSolution()
-    // it then maps a table based on the solution.
+    // it then maps a table based on the solution. Sets difficulty based on
+    // arguments value 1-4.
 
     void guessStatus(std::string guess);
     // Iterates through each character of the guess. If the character matches
@@ -40,25 +41,25 @@ public:
     bool isGameComplete();
     // Returns true if game is won or attempts exceed max tries
 
-    void difficultyScaler(unsigned int difficulty);
-    // Changes max attempts and solution length based on difficulty.
 
 //////////////////////////////GETTERS///////////////////////////////////////////
 
     bool isGameWon();
     unsigned int getSolutionLength();
-    std::string getSolution();
-    HitSummary getResults();
     unsigned int getAttempts();
     unsigned int getMaxAttempts();
     unsigned int getDifficulty();
+    std::string getSolution();
+    HitSummary getResults();
 
 //////////////////////////////SETTERS///////////////////////////////////////////
 
     void incrementAttempt();
-    void setDifficulty(unsigned int difficulty);
 
 private:
+
+    void difficultyScaler(); // TODO Tweak
+    // Sets maxTries and Solution lengths values to scale with difficulty.
 
     std::string generateSolution();
     // uses rand() to pick a number between 0-3 and then switch off that number.
@@ -67,16 +68,12 @@ private:
     // Iterates through solution, and stores the character as a key
     // and sets it's value as true. Returns the map of the solution.
 
-
 //////////////////////////////VARIABLES/////////////////////////////////////////
 
-    unsigned int m_maxAttempts; // TODO make this attribute scale with difficulty
-    unsigned int m_solutionLength = 4; // TODO make this attribute scale with difficulty
-    unsigned int m_difficulty; // 1 = Easy
-                               // 2 = Normal
-                               // 3 = Hard
-                               // 4 = Expert
     unsigned int m_attempts;
+    unsigned int m_maxAttempts;
+    unsigned int m_solutionLength;
+    unsigned int m_difficulty; // Ranges 1 - 4
     HitSummary m_results; // Holds the results of the previous guess.
     std::string m_solution;
     std::map<char, bool> m_solutionTable;

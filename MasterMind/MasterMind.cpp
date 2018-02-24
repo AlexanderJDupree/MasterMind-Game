@@ -1,11 +1,14 @@
 #include <cstdlib>
 #include "MasterMind.h"
 
-Game::Game()
+Game::Game(int difficulty)
 {
     m_attempts = 0;
-    m_maxAttempts = 5;
     m_isGameWon = false;
+
+    m_difficulty = difficulty;
+    difficultyScaler();
+    // sets solution length and max tries based on difficulty.
     m_solution = generateSolution();
     m_solutionTable = createSolutionTable(m_solution);
 }
@@ -53,26 +56,6 @@ bool Game::isGameComplete()
     }
 }
 
-void Game::difficultyScaler(unsigned int difficulty)
-// TODO: NEEDS TWEEKING
-{
-    switch(m_difficulty)
-    {
-        case 1: m_maxAttempts = 5;
-                m_solutionLength = 4;
-                break;
-        case 2: m_maxAttempts = 5;
-                m_solutionLength = 4;
-                break;
-        case 3: m_maxAttempts = 5;
-                m_solutionLength = 4;
-                break;
-        case 4: m_maxAttempts = 5;
-                m_solutionLength = 4;
-                break;
-    }
-}
-
 ///////////////////////////////// GETTERS /////////////////////////////////////
 
 bool Game::isGameWon()
@@ -83,16 +66,6 @@ bool Game::isGameWon()
 unsigned int Game::getSolutionLength()
 {
     return m_solutionLength;
-}
-
-std::string Game::getSolution()
-{
-    return m_solution;
-}
-
-HitSummary Game::getResults()
-{
-    return m_results;
 }
 
 unsigned int Game::getAttempts()
@@ -110,6 +83,17 @@ unsigned int Game::getDifficulty()
     return m_difficulty;
 }
 
+std::string Game::getSolution()
+{
+    return m_solution;
+}
+
+HitSummary Game::getResults()
+{
+    return m_results;
+}
+
+
 //////////////////////////////// SETTERS //////////////////////////////////////
 
 void Game::incrementAttempt()
@@ -118,12 +102,21 @@ void Game::incrementAttempt()
     return;
 }
 
-void Game::setDifficulty(unsigned int difficulty)
-{
-    m_difficulty = difficulty;
-}
-
 //////////////////////////////// PRIVATE //////////////////////////////////////
+
+void Game::difficultyScaler()
+{
+    switch (m_difficulty)
+    {
+        case 1 : m_maxAttempts = 6; m_solutionLength = 3; break;
+        case 2 : m_maxAttempts = 5; m_solutionLength = 4; break;
+        case 3 : m_maxAttempts = 4; m_solutionLength = 5; break;
+        case 4 : m_maxAttempts = 4; m_solutionLength = 6; break;
+        default : m_maxAttempts = 5; m_solutionLength = 4;
+        // default case sets difficulty to 2. Medium difficulty.
+    }
+    return;
+}
 
 std::string Game::generateSolution()
 {
