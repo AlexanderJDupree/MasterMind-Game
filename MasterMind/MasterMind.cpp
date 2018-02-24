@@ -1,10 +1,14 @@
 #include <cstdlib>
 #include "MasterMind.h"
 
-Game::Game()
+Game::Game(int difficulty)
 {
     m_attempts = 0;
     m_isGameWon = false;
+    m_difficulty = difficulty;
+
+    setDifficultyAttributes();
+    // sets solution length and max tries based on difficulty.
     m_solution = generateSolution();
     m_solutionTable = createSolutionTable(m_solution);
 }
@@ -64,6 +68,11 @@ int Game::getSolutionLength()
     return m_solutionLength;
 }
 
+int Game::getRemainingTries()
+{
+    return m_maxTries - m_attempts;
+}
+
 std::string Game::getSolution()
 {
     return m_solution;
@@ -82,19 +91,26 @@ void Game::incrementAttempt()
     return;
 }
 
-void Game::setm_difficulty(unsigned short difficulty)
+//////////////////////////////// PRIVATE //////////////////////////////////////
+
+void Game::setDifficultyAttributes()
 {
-    m_difficulty = difficulty;
+    switch (m_difficulty)
+    {
+        case 1 : m_maxTries = 6; m_solutionLength = 3; break;
+        case 2 : m_maxTries = 5; m_solutionLength = 4; break;
+        case 3 : m_maxTries = 4; m_solutionLength = 5; break;
+        case 4 : m_maxTries = 4; m_solutionLength = 6; break;
+        default : m_maxTries = 5; m_solutionLength = 4;
+        // default case sets difficulty to 2. Medium difficulty.
+    }
     return;
 }
-
-
-//////////////////////////////// PRIVATE //////////////////////////////////////
 
 std::string Game::generateSolution()
 {
     std::string solution = "";
-    for (int i = 0; i < m_solutionLength; i++)
+    for (unsigned int i = 0; i < m_solutionLength; i++)
     {
         switch (rand() % 4)
         {

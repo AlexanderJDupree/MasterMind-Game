@@ -22,10 +22,11 @@ class Game
 {
 public:
 
-    Game();
+    Game(int difficulty);
     // Constructor sets m_attempts to 0, m_isGameWon to false, as well as
     // generates the solution by calling private function generateSolution()
-    // it then maps a table based on the solution.
+    // it then maps a table based on the solution. Sets difficulty based on
+    // arguments value 1-4.
 
     void guessStatus(std::string guess);
     // Iterates through each character of the guess. If the character matches
@@ -43,14 +44,18 @@ public:
     // GETTERS
     bool isGameWon();
     int getSolutionLength();
+    int getRemainingTries();
     std::string getSolution();
     HitSummary getResults();
 
 
     // SETTERS
     void incrementAttempt();
-    void Game::setm_difficulty(unsigned short difficulty)
+
 private:
+
+    void setDifficultyAttributes();
+    // Sets maxTries and Solution lengths values to scale with difficulty.
 
     std::string generateSolution();
     // uses rand() to pick a number between 0-3 and then switch off that number.
@@ -60,16 +65,14 @@ private:
     // and sets it's value as true. Returns the map of the solution.
 
 
-    static const int m_maxTries = 5; // TODO make this attribute scale with difficulty
-    static const int m_solutionLength = 4; // TODO make this attribute scale with difficulty
-
+    unsigned int m_maxTries;
+    unsigned int m_solutionLength;
     unsigned int m_attempts;
+    unsigned int m_difficulty; // Ranges 1 - 4
     HitSummary m_results; // Holds the results of the previous guess.
     std::string m_solution;
     std::map<char, bool> m_solutionTable;
     bool m_isGameWon;
-    unsigned short m_difficulty; // Ranges 1 - 4
-
 };
 
 

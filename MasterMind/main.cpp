@@ -24,6 +24,22 @@
     - Added getters for isGameWon, solution length, solution, and results.
     - Added incrementAttempt()
 
+    2/24/2018
+    - Moved setm_difficulty to the constructor, because the difficulty
+      should be known before the game object is instantiated.
+    - TODO Add function in main.cpp that asks for user difficulty before game
+      object is instantiated.
+    - Added setDifficultyAttributes the sets the solution length and max tries
+      based on the difficulty. This function is called during the construction
+      of the Game object.
+    - Moved intro() to be the first function after main(). Matches the index
+      of the prototypes.
+    - Added getter, getRemainingTries(). To be used in future displayResults()
+    - Added function call to intro()
+    - Added a new line to intro() that tells the user the solution length will
+      change based on difficulty settings.
+    - Added error message on bad inputs.
+
 ******************************************************************************/
 
 #include <iostream>
@@ -36,6 +52,7 @@ using namespace std;
 void intro();
 void displayResults(); // TODO  jake
 void gameSummary(); // TODO jake
+void displayErrorMessage(int solutionLength, string validChars);
 void resetInputStream();
 // resets failure state and discards bad characters on any input that failed.
 
@@ -50,9 +67,11 @@ int main()
 {
     const string validChars = "bgyr";
 
+    intro();
+
     do {
-        Game game; // instantiates new game manager object.
-        unsigned int solutionLength = game.getSolutionLength();
+        Game game(2); // instantiates new game manager object.
+        int solutionLength = game.getSolutionLength();
         do {
         string guess;
         guess = getInput("Enter your guess:  ");
@@ -63,10 +82,7 @@ int main()
             game.incrementAttempt();
             // TODO display results
         }
-        else
-        {
-            // TODO bad input, print error message
-        }
+        else { displayErrorMessage(solutionLength, validChars); }
         } while (!game.isGameComplete());
         // TODO Game summary
     } while (false); // TODO while user wants to play again.
@@ -74,6 +90,64 @@ int main()
 
     return 0;
 }
+
+void intro()
+{
+    cout << "\t\tMASTER MIND"
+         << "\n\n\tAUTHORS: Alex Dupree, Jacob Bickle"
+         << "\n\n\tCREATED: 2/24/2018"
+
+         << "\n\nIn this game, the computer will randomly generate (n) colors:"
+         << "\nThe amount of colors will depend of the difficulty you choose."
+         << "\nRed (r), Green (g), Blue (b), and Yellow (y)."
+         << "\nYour goal is to guess which order the computer has sorted the"
+         << "\ncolors within a certain amount of attempts. "
+
+         << "\n\nTo help you out, every guess will provide you feed back."
+         << "\nA \"miss\" will mean that a color you specified is not apart"
+         << "\nof the solution. A \"near hit\" means that a color you specified"
+         << "\nis apart of the solution, but not in the correct location."
+         << "\nA \"hit\" means a color you specified is in the correct location."
+
+         << "\n\n\t\tEXAMPLE"
+         << "\n\tCOMPUTER: rggy"
+         << "\n\tPLAYER:   yrgb"
+         << "\n\nThe player would receive one hit, two near hits, and one miss."
+         << "\n\n\n";
+
+    cout << endl;
+    return;
+}
+
+/*
+void displayResults()
+// Needs the struct as an arguement, but can't reference struct HitSummary
+// in MasterMind.h from main.cpp
+{
+    unsigned int hits = results.hits;
+    unsigned int nearHits = results.nearHits
+    unsigned int misses = length(Game.getm_solution) - (hits + nearHits)
+
+    cout << "\n==========\n"
+         << "HITS:\t\t" << hits << '\n'
+         << "NEAR HITS:\t" << nearHits << '\n'
+         << "MISSES: \t" << misses << '\n'
+         << "==========\n"
+}
+*/
+
+void displayErrorMessage(int solutionLength, string validChars)
+{
+    cout << "Input must be " << solutionLength << " characters long.";
+    cout << " And only contain the letters: ";
+    for (unsigned int i = 0; i < validChars.length(); i++)
+    {
+        cout << validChars[i] << " ";
+    }
+    cout << endl << endl;
+    return;
+}
+
 
 void resetInputStream()
 {
@@ -132,45 +206,3 @@ bool isValidChars(string input, const string &validChars)
     return true;
 }
 
-/*
-void displayResults()
-// Needs the struct as an arguement, but can't reference struct HitSummary
-// in MasterMind.h from main.cpp
-{
-    unsigned int hits = results.hits;
-    unsigned int nearHits = results.nearHits
-    unsigned int misses = length(Game.getm_solution) - (hits + nearHits)
-
-    cout << "\n==========\n"
-         << "HITS:\t\t" << hits << '\n'
-         << "NEAR HITS:\t" << nearHits << '\n'
-         << "MISSES: \t" << misses << '\n'
-         << "==========\n"
-}
-*/
-
-void intro()
-{
-    cout << "\t\tMASTER MIND"
-         << "\n\n\tAUTHORS: Alex Dupree, Jacob Bickle"
-         << "\n\n\tCREATED: 2/24/2018"
-
-         << "\n\nIn this game, the computer will randomly generate four colors:"
-         << "\nRed (r), Green (g), Blue (b), and Yellow (y)."
-         << "\nYour goal is to guess which order the computer has sorted the"
-         << "\ncolors within a certain amount of attempts. "
-
-         << "\n\nTo help you out, every guess will provide you feed back."
-         << "\nA \"miss\" will mean that a color you specified is not apart"
-         << "\nof the solution. A \"near hit\" means that a color you specified"
-         << "\nis apart of the solution, but not in the correct location."
-         << "\nA \"hit\" means a color you specified is in the correct location."
-
-         << "\n\n\t\tEXAMPLE"
-         << "\n\tCOMPUTER: rggy"
-         << "\n\tPLAYER:   yrgb"
-         << "\n\nThe player would receive one hit, two near hits, and one miss."
-         << "\n\n\n\n";
-
-         << "\n\n"
-}

@@ -11,3 +11,15 @@
 	<iostream>
 	"MasterMind.h"
 
+1519498899 source:c:\users\dupre\desktop\mastermind-game\mastermind\mastermind.cpp
+	<cstdlib>
+	"MasterMind.h"
+
+1519498871 c:\users\dupre\desktop\mastermind-game\mastermind\mastermind.h
+	<string>
+	<map>
+
+1519498827 source:c:\users\dupre\desktop\mastermind-game\mastermind\main.cpp
+	<iostream>
+	"MasterMind.h"
+
