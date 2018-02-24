@@ -53,6 +53,26 @@ bool Game::isGameComplete()
     }
 }
 
+void Game::difficultyScaler(unsigned int difficulty)
+// TODO: NEEDS TWEEKING
+{
+    switch(m_difficulty)
+    {
+        case 1: m_maxAttempts = 5;
+                m_solutionLength = 4;
+                break;
+        case 2: m_maxAttempts = 5;
+                m_solutionLength = 4;
+                break;
+        case 3: m_maxAttempts = 5;
+                m_solutionLength = 4;
+                break;
+        case 4: m_maxAttempts = 5;
+                m_solutionLength = 4;
+                break;
+    }
+}
+
 ///////////////////////////////// GETTERS /////////////////////////////////////
 
 bool Game::isGameWon()
@@ -60,7 +80,7 @@ bool Game::isGameWon()
     return m_isGameWon;
 }
 
-int Game::getSolutionLength()
+unsigned int Game::getSolutionLength()
 {
     return m_solutionLength;
 }
@@ -85,6 +105,11 @@ unsigned int Game::getMaxAttempts()
     return m_maxAttempts;
 }
 
+unsigned int Game::getDifficulty()
+{
+    return m_difficulty;
+}
+
 //////////////////////////////// SETTERS //////////////////////////////////////
 
 void Game::incrementAttempt()
@@ -93,12 +118,17 @@ void Game::incrementAttempt()
     return;
 }
 
+void Game::setDifficulty(unsigned int difficulty)
+{
+    m_difficulty = difficulty;
+}
+
 //////////////////////////////// PRIVATE //////////////////////////////////////
 
 std::string Game::generateSolution()
 {
     std::string solution = "";
-    for (int i = 0; i < m_solutionLength; i++)
+    for (unsigned int i = 0; i < m_solutionLength; i++)
     {
         switch (rand() % 4)
         {

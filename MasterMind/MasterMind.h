@@ -40,21 +40,23 @@ public:
     bool isGameComplete();
     // Returns true if game is won or attempts exceed max tries
 
-    void difficultyScaler();
-    // TODO. Switches variables(need to define which ones)
-    // around to scale with difficulty
+    void difficultyScaler(unsigned int difficulty);
+    // Changes max attempts and solution length based on difficulty.
 
-    // GETTERS
+//////////////////////////////GETTERS///////////////////////////////////////////
+
     bool isGameWon();
-    int getSolutionLength();
+    unsigned int getSolutionLength();
     std::string getSolution();
     HitSummary getResults();
     unsigned int getAttempts();
     unsigned int getMaxAttempts();
+    unsigned int getDifficulty();
 
+//////////////////////////////SETTERS///////////////////////////////////////////
 
-    // SETTERS
     void incrementAttempt();
+    void setDifficulty(unsigned int difficulty);
 
 private:
 
@@ -66,9 +68,14 @@ private:
     // and sets it's value as true. Returns the map of the solution.
 
 
-    unsigned int m_maxAttempts; // TODO make this attribute scale with difficulty
-    int m_solutionLength = 4; // TODO make this attribute scale with difficulty
+//////////////////////////////VARIABLES/////////////////////////////////////////
 
+    unsigned int m_maxAttempts; // TODO make this attribute scale with difficulty
+    unsigned int m_solutionLength = 4; // TODO make this attribute scale with difficulty
+    unsigned int m_difficulty; // 1 = Easy
+                               // 2 = Normal
+                               // 3 = Hard
+                               // 4 = Expert
     unsigned int m_attempts;
     HitSummary m_results; // Holds the results of the previous guess.
     std::string m_solution;
