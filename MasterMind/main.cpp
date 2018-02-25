@@ -55,12 +55,13 @@
     - removed merge conflicts again
     - added getDifficulty in main, is called before game object is instantiated
 
+    2/25/2018
+    - Fixed style guide errors.
+
 ******************************************************************************/
 
 #include <iostream>
 #include "MasterMind.h"
-
-#define LOG(x) std::cout << x << std::endl;
 
 using namespace std;
 
@@ -78,27 +79,26 @@ int getGameDifficulty();
 string lowerCase(string input);
 // std::string doesn't contain a encompassing lowercase function. So I made one.
 string getInput(string prompt);
-bool playerReplay();
 bool isValidInput(unsigned int length, string input, const string &validChars);
 bool isValidChars(string input, const string &validChars);
+bool playAgain();
 
 int main()
 {
     const string validChars = "bgyr";
     int difficulty;
-    bool playerWantsToReplay;
 
     intro();
 
     do
     {
         difficulty = getGameDifficulty();
-        Game game(difficulty); // instantiates new game manager object.
+        Game game(difficulty);
+        // instantiates new game manager object.
 
         int solutionLength = game.getSolutionLength();
         cout << "\nYour solution contains " << solutionLength << " characters.";
 
-        LOG(game.getSolution()); // DEBUG LOG
         do
         {
             string guess;
@@ -108,15 +108,15 @@ int main()
                 game.guessStatus(guess);
                 game.updateGameWon();
                 game.incrementAttempt();
-                displayResults(game); // game is passed by reference
-
+                displayResults(game);
+                // game is passed by reference
             }
             else { displayErrorMessage(solutionLength, validChars); }
         } while (!game.isGameComplete());
 
         gameSummary(game);
 
-    } while (playerReplay());
+    } while (playAgain());
     return 0;
 }
 
@@ -160,6 +160,7 @@ void displayResults(Game &game)
          << "MISSES: \t" << misses << '\n'
          << "ATTEMPTS:\t" << game.getAttempts() << '/' << game.getMaxAttempts()
          << "\n---=============---\n";
+    return;
 }
 
 void gameSummary(Game &game)
@@ -183,23 +184,18 @@ void gameSummary(Game &game)
          << "\n\n\n\t\t\t\t\tThe solution is: " << solution;
 
     if(win)
+    {
         cout << "\n\n\t\t\tCONGRATULATIONS, YOU'VE WON!";
+    }
     else
+    {
         cout << "\n\n\t\t\tYou've LOST!";
+    }
 
     cout << "\n\t\t\tDIFFICULTY: " << difficulty
          << "\n\t\t\tIt took you " << attempts << " out of " << maxAttempts
          << " attempts.\n\n\n\n\n\n\n\n\n\n";
-
-    /*
-    THE SOLUTION IS: YRGB
-
-    CONGRATULATIONS, YOU'VE WON!
-    Difficulty: EASY/NORMAL/HARD/EXPERT
-
-    It took you blank out of blank attempts.
-
-    */
+    return;
 }
 
 void displayErrorMessage(int solutionLength, string validChars)
@@ -207,8 +203,9 @@ void displayErrorMessage(int solutionLength, string validChars)
     cout << "\aInput must be " << solutionLength << " characters long";
     cout << " and only contain the letters: ";
     for (unsigned int i = 0; i < validChars.length(); i++)
+    {
         cout << validChars[i] << " ";
-
+    }
     cout << endl << endl;
     return;
 }
@@ -227,7 +224,7 @@ void resetInputStream()
 int getGameDifficulty()
 {
     int difficulty;
-    cout << "1. Easy\n2. Medium\n3. Hard\n4. EXPERT!" << endl;
+    cout << "\n1. Easy\n2. Medium\n3. Hard\n4. EXPERT!" << endl;
     cout << "Enter the number of your chosen difficulty:  ";
     cin >> difficulty;
     if (difficulty > 4 || difficulty < 1)
@@ -244,7 +241,9 @@ string lowerCase(string input)
 {
     string newString = "";
     for (unsigned int i = 0; i < input.length(); i++)
+    {
         newString += tolower(input[i]);
+    }
     return newString;
 }
 
@@ -285,13 +284,12 @@ bool isValidChars(string input, const string &validChars)
     return true;
 }
 
-bool playerReplay()
+bool playAgain()
 {
     char ch;
     cout << "\n\n\nWould you like to replay the game?"
          << "\nEnter 'y' to replay, or 'n' to quit:  ";
     cin >> ch;
-    if (ch == 'y' || ch == 'Y')
-        return true;
+    if (ch == 'y' || ch == 'Y') { return true; }
     return false;
 }
