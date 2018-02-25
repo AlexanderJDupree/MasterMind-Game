@@ -73,11 +73,12 @@ void gameSummary(Game &game);
 void displayErrorMessage(int solutionLength, string validChars);
 void resetInputStream();
 // resets failure state and discards bad characters on any input that failed.
-int getDifficulty();
+int getGameDifficulty();
 // Asks user what difficulty setting to play on.
 string lowerCase(string input);
 // std::string doesn't contain a encompassing lowercase function. So I made one.
 string getInput(string prompt);
+bool playerReplay();
 bool isValidInput(unsigned int length, string input, const string &validChars);
 bool isValidChars(string input, const string &validChars);
 
@@ -85,30 +86,37 @@ int main()
 {
     const string validChars = "bgyr";
     int difficulty;
+    bool playerWantsToReplay;
 
     intro();
 
-    do {
-        difficulty = getDifficulty();
+    do
+    {
+        difficulty = getGameDifficulty();
         Game game(difficulty); // instantiates new game manager object.
-        int solutionLength = game.getSolutionLength();
-        LOG(game.getSolution()); // DEBUG LOG
-        do {
 
-        string guess;
-        guess = getInput("Enter your guess:  ");
-        if (isValidInput(solutionLength, guess, validChars))
+        int solutionLength = game.getSolutionLength();
+        cout << "\nYour solution contains " << solutionLength << " characters.";
+
+        LOG(game.getSolution()); // DEBUG LOG
+        do
         {
-            game.guessStatus(guess);
-            game.updateGameWon();
-            game.incrementAttempt();
-            displayResults(game);
-            // game is passed by reference
-        }
-        else { displayErrorMessage(solutionLength, validChars); }
+            string guess;
+            guess = getInput("Enter your guess:  ");
+            if (isValidInput(solutionLength, guess, validChars))
+            {
+                game.guessStatus(guess);
+                game.updateGameWon();
+                game.incrementAttempt();
+                displayResults(game); // game is passed by reference
+
+            }
+            else { displayErrorMessage(solutionLength, validChars); }
         } while (!game.isGameComplete());
-        // TODO Game summary
-    } while (false); // TODO while user wants to play again.
+
+        gameSummary(game);
+
+    } while (playerReplay());
     return 0;
 }
 
@@ -157,12 +165,12 @@ void displayResults(Game &game)
 void gameSummary(Game &game)
 {
     string solution = game.getSolution();
-    string difficulty;
-    int difficultyNum = game.getDifficulty(); // NEED GETTER
+    int difficultyNum = game.getDifficulty();
     unsigned int attempts = game.getAttempts();
     unsigned int maxAttempts = game.getMaxAttempts();
     bool win = game.isGameWon();
 
+    string difficulty;
     switch(difficultyNum)
     {
         case 1: difficulty = "EASY"; break;
@@ -171,34 +179,36 @@ void gameSummary(Game &game)
         case 4: difficulty = "EXPERT"; break;
     }
 
-    cout << "\n\n\nThe solution is: " << solution;
+    cout << string(100 , '\n')
+         << "\n\n\n\t\t\t\t\tThe solution is: " << solution;
 
     if(win)
-        cout << "\n\nCONGRATULATIONS, YOU'VE WON!";
+        cout << "\n\n\t\t\tCONGRATULATIONS, YOU'VE WON!";
     else
-        cout << "\n\nYou've LOST!";
+        cout << "\n\n\t\t\tYou've LOST!";
 
-    cout << "\nIt took you " << attempts << " out of " << maxAttempts
-         << " attempts."
-         << "\nDIFFICULTY: " << difficulty;
+    cout << "\n\t\t\tDIFFICULTY: " << difficulty
+         << "\n\t\t\tIt took you " << attempts << " out of " << maxAttempts
+         << " attempts.\n\n\n\n\n\n\n\n\n\n";
 
     /*
     THE SOLUTION IS: YRGB
 
     CONGRATULATIONS, YOU'VE WON!
-    It took you blank out of blank attempts.
     Difficulty: EASY/NORMAL/HARD/EXPERT
+
+    It took you blank out of blank attempts.
+
     */
 }
 
 void displayErrorMessage(int solutionLength, string validChars)
 {
-    cout << "Input must be " << solutionLength << " characters long.";
-    cout << " And only contain the letters: ";
+    cout << "\aInput must be " << solutionLength << " characters long";
+    cout << " and only contain the letters: ";
     for (unsigned int i = 0; i < validChars.length(); i++)
-    {
         cout << validChars[i] << " ";
-    }
+
     cout << endl << endl;
     return;
 }
@@ -214,11 +224,11 @@ void resetInputStream()
     return;
 }
 
-int getDifficulty()
+int getGameDifficulty()
 {
     int difficulty;
     cout << "1. Easy\n2. Medium\n3. Hard\n4. EXPERT!" << endl;
-    cout << "Choose your difficulty:  ";
+    cout << "Enter the number of your chosen difficulty:  ";
     cin >> difficulty;
     if (difficulty > 4 || difficulty < 1)
     {
@@ -234,9 +244,7 @@ string lowerCase(string input)
 {
     string newString = "";
     for (unsigned int i = 0; i < input.length(); i++)
-    {
         newString += tolower(input[i]);
-    }
     return newString;
 }
 
@@ -275,4 +283,15 @@ bool isValidChars(string input, const string &validChars)
         if (!charTable[input[i]]) { return false;}
     }
     return true;
+}
+
+bool playerReplay()
+{
+    char ch;
+    cout << "\n\n\nWould you like to replay the game?"
+         << "\nEnter 'y' to replay, or 'n' to quit:  ";
+    cin >> ch;
+    if (ch == 'y' || ch == 'Y')
+        return true;
+    return false;
 }
