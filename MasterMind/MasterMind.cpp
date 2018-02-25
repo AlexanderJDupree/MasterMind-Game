@@ -117,9 +117,9 @@ void Game::difficultyScaler()
     switch (m_difficulty)
     {
         case 1 : m_maxAttempts = 6; m_solutionLength = 3; break;
-        case 2 : m_maxAttempts = 5; m_solutionLength = 4; break;
-        case 3 : m_maxAttempts = 4; m_solutionLength = 5; break;
-        case 4 : m_maxAttempts = 4; m_solutionLength = 6; break;
+        case 2 : m_maxAttempts = 7; m_solutionLength = 4; break;
+        case 3 : m_maxAttempts = 8; m_solutionLength = 5; break;
+        case 4 : m_maxAttempts = 10; m_solutionLength = 6; break;
         default : m_maxAttempts = 5; m_solutionLength = 4;
         // default case sets difficulty to 2. Medium difficulty.
     }

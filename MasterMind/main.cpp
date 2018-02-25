@@ -57,6 +57,8 @@
 
     2/25/2018
     - Fixed style guide errors.
+    - Cleaned up "look" of the game
+    - Tweaked difficulty settings
 
 ******************************************************************************/
 
@@ -69,7 +71,7 @@ void intro();
 void displayResults(Game &game);
 // Displays hits, near hits, misses, and attempts remaining.
 void gameSummary(Game &game);
-// Displays correct solution, whether player has one or lost, attempts, and
+// Displays correct solution, whether player has won or lost, attempts, and
 // the difficulty.
 void displayErrorMessage(int solutionLength, string validChars);
 void resetInputStream();
@@ -94,10 +96,10 @@ int main()
     {
         difficulty = getGameDifficulty();
         Game game(difficulty);
-        // instantiates new game manager object.
 
         int solutionLength = game.getSolutionLength();
-        cout << "\nYour solution contains " << solutionLength << " characters.";
+        cout << "\nYour solution contains " << solutionLength << " characters."
+             << endl;
 
         do
         {
@@ -154,12 +156,12 @@ void displayResults(Game &game)
     unsigned int nearHits = game.getResults().nearHits;
     unsigned int misses = game.getSolution().length() - (hits + nearHits);
 
-    cout << "\n---=============---\n"
+    cout << "---=============---\n"
          << "HITS:\t\t" << hits << '\n'
          << "NEAR HITS:\t" << nearHits << '\n'
          << "MISSES: \t" << misses << '\n'
          << "ATTEMPTS:\t" << game.getAttempts() << '/' << game.getMaxAttempts()
-         << "\n---=============---\n";
+         << "\n---=============---\n\n";
     return;
 }
 
