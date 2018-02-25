@@ -13,7 +13,10 @@
 
 1519457610 D
 
-1519502366 source:c:\users\bickl\documents\github\mastermind-game\mastermind\mastermind.cpp
+1519539351 source:c:\users\bickl\documents\github\mastermind-game\mastermind\mastermind.cpp
+	<cstdlib>
+	<ctime>
+	"MasterMind.h"
 
 1519506891 source:c:\users\dupre\desktop\mastermind-game\mastermind\mastermind.cpp
 	<cstdlib>
@@ -24,7 +27,7 @@
 	<string>
 	<map>
 
-1519506805 source:c:\users\dupre\desktop\mastermind-game\mastermind\main.cpp
+1519586197 source:c:\users\dupre\desktop\mastermind-game\mastermind\main.cpp
 	<iostream>
 	"MasterMind.h"
 
@@ -34,13 +37,13 @@
 	<cstdlib>
 	"MasterMind.h"
 
-1519504340 c:\users\bickl\documents\github\mastermind-game\mastermind\mastermind.h
+1519506799 c:\users\bickl\documents\github\mastermind-game\mastermind\mastermind.h
 	<string>
 	<map>
 
-1519504197 source:c:\users\bickl\documents\github\mastermind-game\mastermind\main.cpp
+1519541492 source:c:\users\bickl\documents\github\mastermind-game\mastermind\main.cpp
 	<iostream>
-	<string>
+	"MasterMind.h"
 
 1519502229 ts
 	"MasterMind.h"

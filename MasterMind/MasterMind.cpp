@@ -1,3 +1,10 @@
+/******************************************************************************
+
+MasterMind.cpp contains the implementation of the Game class defined in
+MasterMind.h
+
+******************************************************************************/
+
 #include <cstdlib>
 #include <ctime>
 #include "MasterMind.h"

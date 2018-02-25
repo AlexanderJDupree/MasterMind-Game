@@ -1,6 +1,10 @@
 /******************************************************************************
 
- TODO ADD CLASS DESCRIPTION
+Game object acts as the game manager for the masterMind game. The constructor
+requires the difficulty as an argument (an integer from 1-4) and then creates
+the solution and sets the member variables. Game object keeps track of the
+number of players guesses, max tries, and win conditions. Game object also contains
+the functionality to update whether or not the game is complete or not.
 
 ******************************************************************************/
 #ifndef GAME_H
