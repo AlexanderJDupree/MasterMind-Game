@@ -60,6 +60,17 @@
     - Cleaned up "look" of the game
     - Tweaked difficulty settings
 
+    2/26/2018
+    - Moved the display solution line from main to its own function. This keeps
+      main from "being chatty".
+    - Renamed generateSolution to generateHardSolution. And added new function
+      generateBasicSolution for use in easy and medium difficulty.
+    - Reworked constructor to require a validChars argument as well. The
+      generate hard and basic solution function now dynamically pick from
+      characters that were given it.
+    - Added difficulty check in the constructor to ensure the correct solution
+      is generated.
+
 ******************************************************************************/
 
 #include <iostream>
@@ -74,6 +85,7 @@ void gameSummary(Game &game);
 // Displays correct solution, whether player has won or lost, attempts, and
 // the difficulty.
 void displayErrorMessage(int solutionLength, string validChars);
+void displaySolutionLength(int solutionLength);
 void resetInputStream();
 // resets failure state and discards bad characters on any input that failed.
 int getGameDifficulty();
@@ -95,11 +107,10 @@ int main()
     do
     {
         difficulty = getGameDifficulty();
-        Game game(difficulty);
+        Game game(difficulty, validChars);
 
         int solutionLength = game.getSolutionLength();
-        cout << "\nYour solution contains " << solutionLength << " characters."
-             << endl;
+        displaySolutionLength(solutionLength);
 
         do
         {
@@ -209,6 +220,13 @@ void displayErrorMessage(int solutionLength, string validChars)
         cout << validChars[i] << " ";
     }
     cout << endl << endl;
+    return;
+}
+
+void displaySolutionLength(int solutionLength)
+{
+    cout << "\nYour solution contains " << solutionLength << " characters."
+             << endl;
     return;
 }
 

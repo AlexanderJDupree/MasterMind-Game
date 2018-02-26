@@ -26,7 +26,8 @@ class Game
 {
 public:
 
-    Game(int difficulty);
+    Game(int difficulty, std::string validChars);
+    // Precondition: validChars MUST contain only 4 characters.
     // Constructor sets m_attempts to 0, m_isGameWon to false, as well as
     // generates the solution by calling private function generateSolution()
     // it then maps a table based on the solution. Sets difficulty based on
@@ -65,8 +66,15 @@ private:
     void difficultyScaler(); // TODO Tweak
     // Sets maxTries and Solution lengths values to scale with difficulty.
 
-    std::string generateSolution();
+    std::string generateHardSolution();
     // uses rand() to pick a number between 0-3 and then switch off that number.
+    // Can allow for duplicated characters, for use in hard and expert mode.
+
+    std::string generateBasicSolution();
+    // Precondition: the solutionLength MUST match the length of the valid
+    // chars.
+    // Picks from valid Chars only once to ensure no duplicates are in the
+    // solution.
 
     std::map<char, bool> createSolutionTable(std::string solution);
     // Iterates through solution, and stores the character as a key
@@ -80,6 +88,7 @@ private:
     unsigned int m_difficulty; // Ranges 1 - 4
     HitSummary m_results; // Holds the results of the previous guess.
     std::string m_solution;
+    std::string m_validChars;
     std::map<char, bool> m_solutionTable;
     bool m_isGameWon;
 };

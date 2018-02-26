@@ -9,15 +9,17 @@ MasterMind.h
 #include <ctime>
 #include "MasterMind.h"
 
-Game::Game(int difficulty)
+Game::Game(int difficulty, std::string validChars)
 {
     m_attempts = 0;
     m_isGameWon = false;
+    m_validChars = validChars;
 
     m_difficulty = difficulty;
     difficultyScaler();
     // sets solution length and max tries based on difficulty.
-    m_solution = generateSolution();
+    if (m_difficulty <= 2) { m_solution = generateBasicSolution(); }
+    else { m_solution = generateHardSolution(); }
     m_solutionTable = createSolutionTable(m_solution);
 }
 
@@ -126,7 +128,7 @@ void Game::difficultyScaler()
     return;
 }
 
-std::string Game::generateSolution()
+std::string Game::generateHardSolution()
 {
     std::string solution = "";
     std::srand(time(NULL));
@@ -134,12 +136,29 @@ std::string Game::generateSolution()
     {
         switch (rand() % 4)
         {
-            case 0 : solution += 'y'; break;
-            case 1 : solution += 'r'; break;
-            case 2 : solution += 'g'; break;
-            case 3 : solution += 'b'; break;
+            case 0 : solution += m_validChars[0]; break;
+            case 1 : solution += m_validChars[1]; break;
+            case 2 : solution += m_validChars[2]; break;
+            case 3 : solution += m_validChars[3]; break;
             default : break; // Default case should be impossible.
         }
+    }
+    return solution;
+}
+
+std::string Game::generateBasicSolution()
+{
+    std::string solution = "";
+    std::string validChars = m_validChars;
+    std::srand(time(NULL));
+
+    int counter = m_solutionLength;
+    while (counter > 0)
+    {
+        int index = rand() % counter;
+        solution += validChars[index];
+        validChars.erase(index, 1);
+        counter --;
     }
     return solution;
 }
