@@ -34,7 +34,7 @@
 		</Compiler>
 		<Unit filename="MasterMind.cpp" />
 		<Unit filename="MasterMind.h" />
-		<Unit filename="main.cpp" />
+		<Unit filename="MasterMindDriver.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

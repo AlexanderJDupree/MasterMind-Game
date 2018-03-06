@@ -63,7 +63,7 @@ public:
 
 private:
 
-    void difficultyScaler(); // TODO Tweak
+    void difficultyScaler();
     // Sets maxTries and Solution lengths values to scale with difficulty.
 
     std::string generateHardSolution();

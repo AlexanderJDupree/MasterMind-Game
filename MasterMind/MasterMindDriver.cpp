@@ -2,9 +2,10 @@
 * File: masterMind_driver.cpp
 * Description: TODO Description
 * Author: Alexander DuPree, Jake Bickle
-* Date: 2/24/2018
+* Date: 2/27/2018
 * Compiler: GNU CC Compiler 5.4.0
 * Modifications:
+    2/23/2018
     - Added getInput()
     - Added two checks, isValidInput() which calls on isValidChars() to return
         a boolean
@@ -70,6 +71,9 @@
       characters that were given it.
     - Added difficulty check in the constructor to ensure the correct solution
       is generated.
+    2/27/2018
+    Final Version!
+    Updated some comments and renamed file to MasterMindDriver.cpp
 
 ******************************************************************************/
 
@@ -91,7 +95,7 @@ void resetInputStream();
 int getGameDifficulty();
 // Asks user what difficulty setting to play on.
 string lowerCase(string input);
-// std::string doesn't contain a encompassing lowercase function. So I made one.
+// Converts an entire string into lowercase characters.
 string getInput(string prompt);
 bool isValidInput(unsigned int length, string input, const string &validChars);
 bool isValidChars(string input, const string &validChars);

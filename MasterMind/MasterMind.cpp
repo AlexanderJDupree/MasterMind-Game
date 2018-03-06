@@ -29,13 +29,13 @@ void Game::guessStatus(std::string guess)
     // clear previous results
 
     for (unsigned int i = 0; i < m_solution.length(); i++)
-    {
+    {   // Check if the guess character is the same at index 'i'
         if (guess[i] == m_solution[i])
         {
             m_results.hits += 1;
         }
         else
-        {
+        {   // Check if guess character exists in the solution.
             if (m_solutionTable[guess[i]])
             {
                 m_results.nearHits += 1;
@@ -140,7 +140,7 @@ std::string Game::generateHardSolution()
             case 1 : solution += m_validChars[1]; break;
             case 2 : solution += m_validChars[2]; break;
             case 3 : solution += m_validChars[3]; break;
-            default : break; // Default case should be impossible.
+            default : break; // Default case is impossible.
         }
     }
     return solution;
